@@ -1,6 +1,18 @@
 import { Link } from "@inertiajs/react";
 import { Search, X, EllipsisVertical } from "lucide-react";
 import { useState } from "react";
+import { usePage } from "@inertiajs/react";
+
+interface NavbarItem {
+    id: string;
+    title: string;
+    text: string | null;
+    description: string;
+    image: string | null;
+    layout: string;
+    position: string | null;
+    urutan: number;
+}
 
 export default function Navbar() {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -10,22 +22,26 @@ export default function Navbar() {
         { name: "Home", href: "/" },
         { name: "Produk", href: "/produk" },
         { name: "Kontak", href: "/kontak" },
-        { name: "Book", href: "/book" },
     ];
+    const { props } = usePage();
+    const navbarData = (props.navbarData ?? []) as NavbarItem[];
+    const firstNavbar = navbarData[0] ?? {};
 
     return (
         <>
-            <header className="w-full md:px-20 fixed top-10 z-50">
+            <header className="w-full md:px-20 fixed top-0 md:top-10 z-50">
                 <nav className="container mx-auto bg-white border-gray-200 px-2 sm:px-4 py-5 shadow-2xl">
                     <div className="flex flex-wrap items-center justify-between mx-auto px-10">
                         <Link href="/" className="flex items-center ">
-                            <img
-                                src="/image/Logo.png"
-                                className="h-10 mr-3 sm:h-14"
-                                alt="Logo"
-                            />
+                            {firstNavbar.image && (
+                                <img
+                                    src={firstNavbar.image}
+                                    className="h-10 mr-3 sm:h-14"
+                                    alt="Logo"
+                                />
+                            )}
                             <div className="flex gap-1 self-center text-xl font-bold whitespace-nowrap text-gray-900 uppercase text-shadow">
-                                Lazer Shope
+                                {firstNavbar.title ?? ""}
                             </div>
                         </Link>
 

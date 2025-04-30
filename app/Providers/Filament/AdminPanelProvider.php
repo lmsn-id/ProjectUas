@@ -27,6 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login(\App\Http\Controllers\Auth\FilamentLoginController::class)
+            ->favicon("/image/Logo.png")
             ->colors([
                 'primary' => Color::Amber,
             ])
